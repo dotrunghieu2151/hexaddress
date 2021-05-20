@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div class="loading-wrapper" v-if="loading">
     <slot />
   </div>

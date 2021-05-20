@@ -10,7 +10,7 @@ export default {
     tmp: {},
     middleware: auth,
     beforeResolve: async (to, from, next) => {
-      const data = await hexabaseService.address.getItems({ page: 1, perPage: 10 });
+      const data = await hexabaseService.address.getItems({ page: 1, perPage: 5 });
       to.meta.tmp.addressList = data;
       next();
     }

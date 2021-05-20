@@ -25,6 +25,9 @@ const mutations = {
       state.loading--;
     }
   },
+  setLoading(state) {
+    state.loading++;
+  },
   clearLoading(state) {
     state.loading = defaultState().loading
   },

@@ -3,7 +3,7 @@
     <v-layout row justify-center>
       <v-container fluid>
         <NavBar v-if="$route.name !== 'login'" />
-        <LoaderWrapper :loading="true">
+        <LoaderWrapper :loading="isLoading">
           <LoaderSpin />
         </LoaderWrapper>
         <v-main>
@@ -39,11 +39,6 @@ export default {
   data: () => ({
     //
   }),
-  watch: {
-    isLoading(val) {
-      console.log("LOADING", val);
-    },
-  },
   computed: {
     ...commonGetters(["isLoading"]),
   },
