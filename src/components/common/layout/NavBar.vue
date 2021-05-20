@@ -112,7 +112,7 @@ export default {
       ],
       sideBarTreeView: [
         // { title: "Home", name: "home", path: "/", icon: "mdi-home" },
-        { title: "Address", path: "/address", icon: "mdi-map-marker" },
+        { title: "Address", path: "/", icon: "mdi-map-marker" },
       ],
     };
   },

@@ -3,7 +3,7 @@ import { hexabaseService } from '@/services';
 import auth from '../middlewares/auth';
 
 export default {
-  path: '/address',
+  path: '/',
   name: 'address',
   component: () => import('@/views/Address'),
   meta: {

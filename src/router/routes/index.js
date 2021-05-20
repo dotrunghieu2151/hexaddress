@@ -2,6 +2,7 @@
 import _404 from '@/views/_404';
 import login from './login';
 import address from './address';
+import auth from '../middlewares/auth';
 
 export default [
   // home,
@@ -14,6 +15,9 @@ export default [
     // Allows props to be passed to the 404 page through route
     // params, such as `resource` to define what wasn't found.
     props: true,
+    meta: {
+      middleware: auth
+    }
   },
   // Redirect any unmatched routes to the 404 page. This may
   // require some server configuration to work in production:
