@@ -6,6 +6,7 @@ import {
   localize
 } from "vee-validate";
 import * as rules from "vee-validate/dist/rules";
+import * as customRules from "@/utils/rules";
 
 localize('en');
 
@@ -18,6 +19,27 @@ Object.keys(rules).forEach(rule => {
   extend(rule, {
     ...rules[rule],
   });
+});
+
+extend('tel', {
+  validate: customRules.tel,
+  getMessage(field) {
+    return `${field} is invalid`;
+  },
+});
+
+extend('zipCode', {
+  validate: customRules.zipCode,
+  getMessage(field) {
+    return `${field} is invalid`;
+  },
+});
+
+extend('fax', {
+  validate: customRules.fax,
+  getMessage(field) {
+    return `${field} is invalid`;
+  },
 });
 // custom validation modes
 export const passiveWhenValid = ({ errors }) => {

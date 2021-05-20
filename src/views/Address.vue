@@ -25,78 +25,133 @@
               ></v-text-field>
             </v-col>
             <v-col cols="9" sm="6" md="9">
-              <v-dialog v-model="createDialog" max-width="500px">
-                <template v-slot:activator="{ attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2 float-right mt-3 mr-4"
-                    v-bind="attrs"
-                    @click="openCreateDialog"
-                  >
-                    New Address
-                  </v-btn>
-                </template>
-                <v-card>
-                  <v-card-title>
-                    <span class="headline">{{ formTitle }}</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            v-model="editItem.address"
-                            label="Address"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            type="number"
-                            v-model="editItem.zip"
-                            label="Zip"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            type="number"
-                            v-model="editItem.fax"
-                            label="Fax"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            type="number"
-                            v-model="editItem.telephone"
-                            label="Telephone"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            type="number"
-                            v-model="editItem.mobile"
-                            label="Mobile"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
+              <ValidatorObserver v-slot="props">
+                <v-dialog v-model="createDialog" max-width="500px">
+                  <template v-slot:activator="{ attrs }">
                     <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="createDialog = false"
+                      color="primary"
+                      dark
+                      class="mb-2 float-right mt-3 mr-4"
+                      v-bind="attrs"
+                      @click="openCreateDialog"
                     >
-                      Cancel
+                      New Address
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="createAddress">
-                      Save
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">{{ formTitle }}</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="12" sm="6" md="4">
+                            <Validator
+                              v-slot="props"
+                              label="Assignee"
+                              rules="required|alpha_spaces"
+                            >
+                              <v-text-field
+                                v-model="editItem.assignee"
+                                label="Assignee"
+                                :error="props.hasErrorDirty"
+                              ></v-text-field>
+                              <p class="red--text">{{ props.errors }}</p>
+                            </Validator>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <Validator v-slot="props" label="Address">
+                              <v-text-field
+                                v-model="editItem.address"
+                                label="Address"
+                                :error="props.hasErrorDirty"
+                              ></v-text-field>
+                              <p class="red--text">{{ props.errors }}</p>
+                            </Validator>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <Validator
+                              v-slot="props"
+                              label="Zip"
+                              rules="required|zipCode"
+                            >
+                              <v-text-field
+                                type="text"
+                                v-model="editItem.zip"
+                                label="Zip"
+                                :error="props.hasErrorDirty"
+                              ></v-text-field>
+                              <p class="red--text">{{ props.errors }}</p>
+                            </Validator>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <Validator
+                              v-slot="props"
+                              label="Fax"
+                              rules="required|fax"
+                            >
+                              <v-text-field
+                                type="text"
+                                v-model="editItem.fax"
+                                :error="props.hasErrorDirty"
+                                label="Fax"
+                              ></v-text-field>
+                              <p class="red--text">{{ props.errors }}</p>
+                            </Validator>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <Validator
+                              v-slot="props"
+                              label="Telephone"
+                              rules="required|tel"
+                            >
+                              <v-text-field
+                                type="text"
+                                v-model="editItem.telephone"
+                                label="Telephone"
+                                :error="props.hasErrorDirty"
+                              ></v-text-field>
+                              <p class="red--text">{{ props.errors }}</p>
+                            </Validator>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <Validator
+                              v-slot="props"
+                              label="Mobile"
+                              rules="required|tel"
+                            >
+                              <v-text-field
+                                type="text"
+                                v-model="editItem.mobile"
+                                :error="props.hasErrorDirty"
+                                label="Mobile"
+                              ></v-text-field>
+                              <p class="red--text">{{ props.errors }}</p>
+                            </Validator>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="createDialog = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="props.passes(createAddress)"
+                      >
+                        Save
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </ValidatorObserver>
               <!-- delete dialog -->
               <v-dialog v-model="deleteDialog" max-width="500px">
                 <v-card>
@@ -141,12 +196,18 @@
 import { isEmpty } from "@/utils/helpers";
 import { hexabaseService } from "@/services";
 import { userGetters } from "@/store/modules/user";
+import ValidatorObserver from "../components/validation/ValidatorObserver.vue";
+import Validator from "../components/validation/Validator.vue";
 
 export default {
   name: "Address",
   page: {
     title: "Address",
     meta: [{ name: "description", content: "Address page" }],
+  },
+  components: {
+    ValidatorObserver,
+    Validator,
   },
   props: {
     addressList: {
@@ -166,6 +227,7 @@ export default {
           align: "left",
           value: "user",
         },
+        { text: "Assignee", value: "assignee", align: "center" },
         { text: "Address", value: "address", align: "center" },
         { text: "Zip", value: "zip", align: "center" },
         { text: "Fax", value: "fax", align: "center" },
@@ -189,6 +251,7 @@ export default {
         telephone: "",
         mobile: "",
         rev_no: 0,
+        assignee: "",
       },
     };
   },
@@ -196,9 +259,11 @@ export default {
     ...userGetters(["userInfo"]),
     formattedOptions() {
       const { page, itemsPerPage } = this.options;
+      console.log(this.options);
       let { sortBy, sortDesc } = this.options;
       sortBy = isEmpty(sortBy) ? null : sortBy[0];
       sortDesc = isEmpty(sortDesc) ? null : sortDesc[0] ? "desc" : "asc";
+      console.log({ page, itemsPerPage, sortBy, sortDesc });
       return { page, itemsPerPage, sortBy, sortDesc };
     },
     formattedSearch() {
@@ -214,7 +279,7 @@ export default {
     },
     formattedItemList() {
       const mapItems = this.items.items.map(
-        ({ i_id, address, zip, fax, telephone, mobile, user, rev_no }) => ({
+        ({
           i_id,
           address,
           zip,
@@ -223,6 +288,17 @@ export default {
           mobile,
           user,
           rev_no,
+          assignee,
+        }) => ({
+          i_id,
+          address,
+          zip,
+          fax,
+          telephone,
+          mobile,
+          user,
+          rev_no,
+          assignee,
         })
       );
       return {
@@ -275,6 +351,7 @@ export default {
         telephone: "",
         mobile: "",
         rev_no: 0,
+        assignee: "",
       };
       this.formTitle = "Create Address";
       this.createDialog = true;

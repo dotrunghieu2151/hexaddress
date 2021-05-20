@@ -3,7 +3,7 @@
     <v-layout row justify-center>
       <v-container fluid>
         <NavBar v-if="$route.name !== 'login'" />
-        <LoaderWrapper :loading="isLoading">
+        <LoaderWrapper :loading="true">
           <LoaderSpin />
         </LoaderWrapper>
         <v-main>

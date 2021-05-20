@@ -10,6 +10,7 @@
   >
     <slot
       :dirty="props.dirty"
+      :hasErrorDirty="hasErrorDirty(props.errors, props.dirty)"
       :hasErrors="hasErrors(props.errors)"
       :errors="formatError(props.errors)"
       :valid="props.valid"
@@ -42,6 +43,9 @@ export default {
     },
     hasErrors(err) {
       return err.length > 0;
+    },
+    hasErrorDirty(err, dirty) {
+      return dirty && err.length > 0;
     },
   },
 };
