@@ -25,7 +25,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="9" sm="6" md="9">
-              <ValidatorObserver v-slot="props">
+              <ValidatorObserver v-slot="props" ref="observer">
                 <v-dialog v-model="createDialog" max-width="500px">
                   <template v-slot:activator="{ attrs }">
                     <v-btn
@@ -54,7 +54,7 @@
                               <v-text-field
                                 v-model="editItem.assignee"
                                 label="Assignee"
-                                :error="props.hasErrorDirty"
+                                :error="props.hasErrors"
                               ></v-text-field>
                               <p class="red--text">{{ props.errors }}</p>
                             </Validator>
@@ -64,7 +64,7 @@
                               <v-text-field
                                 v-model="editItem.address"
                                 label="Address"
-                                :error="props.hasErrorDirty"
+                                :error="props.hasErrors"
                               ></v-text-field>
                               <p class="red--text">{{ props.errors }}</p>
                             </Validator>
@@ -79,7 +79,7 @@
                                 type="text"
                                 v-model="editItem.zip"
                                 label="Zip"
-                                :error="props.hasErrorDirty"
+                                :error="props.hasErrors"
                               ></v-text-field>
                               <p class="red--text">{{ props.errors }}</p>
                             </Validator>
@@ -93,7 +93,7 @@
                               <v-text-field
                                 type="text"
                                 v-model="editItem.fax"
-                                :error="props.hasErrorDirty"
+                                :error="props.hasErrors"
                                 label="Fax"
                               ></v-text-field>
                               <p class="red--text">{{ props.errors }}</p>
@@ -109,7 +109,7 @@
                                 type="text"
                                 v-model="editItem.telephone"
                                 label="Telephone"
-                                :error="props.hasErrorDirty"
+                                :error="props.hasErrors"
                               ></v-text-field>
                               <p class="red--text">{{ props.errors }}</p>
                             </Validator>
@@ -123,7 +123,7 @@
                               <v-text-field
                                 type="text"
                                 v-model="editItem.mobile"
-                                :error="props.hasErrorDirty"
+                                :error="props.hasErrors"
                                 label="Mobile"
                               ></v-text-field>
                               <p class="red--text">{{ props.errors }}</p>
@@ -343,6 +343,7 @@ export default {
       this.loading = false;
     },
     openCreateDialog() {
+      this.$refs.observer.$refs.obs.reset();
       this.editItem = {
         i_id: "",
         address: "",
@@ -357,6 +358,7 @@ export default {
       this.createDialog = true;
     },
     openEditDialog(item) {
+      this.$refs.observer.$refs.obs.reset();
       this.editItem = item;
       this.formTitle = "Edit Address";
       this.createDialog = true;
