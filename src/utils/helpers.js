@@ -386,3 +386,10 @@ export const shuffleArray = (array) => {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+export const performanceMeasure = (fn) => (...args) => {
+  const t0 = performance.now(); // for browser only
+  fn(...args);
+  const t1 = performance.now();
+  console.log(`Call to ${fn.name} took ${t1 - t0} miliseconds`);
+}
