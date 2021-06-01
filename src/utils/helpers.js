@@ -393,3 +393,7 @@ export const performanceMeasure = (fn) => (...args) => {
   const t1 = performance.now();
   console.log(`Call to ${fn.name} took ${t1 - t0} miliseconds`);
 }
+
+// when DateTimeObj is convert to number, it becomes timestamp so we can use subtraction here
+export const getDayDiff = (date1, date2) =>
+  Math.round(Math.abs((date2 - date1) / (1000 * 3600 * 24)));
